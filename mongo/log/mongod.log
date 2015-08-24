@@ -1,0 +1,107 @@
+2015-08-22T13:45:04.972+0300 I STORAGE  [initandlisten] exception in initAndListen: 29 Data directory /home/koomasha/SurveyMonster/~/SurveyMonster/data not found., terminating
+2015-08-22T13:45:04.973+0300 I CONTROL  [initandlisten] dbexit:  rc: 100
+2015-08-22T13:46:28.629+0300 I CONTROL  ***** SERVER RESTARTED *****
+2015-08-22T13:46:28.672+0300 I STORAGE  [initandlisten] exception in initAndListen: 29 Data directory /home/koomasha/SurveyMonster/~/SurveyMonster/data not found., terminating
+2015-08-22T13:46:28.673+0300 I CONTROL  [initandlisten] dbexit:  rc: 100
+2015-08-22T13:48:36.344+0300 I CONTROL  ***** SERVER RESTARTED *****
+2015-08-22T13:48:36.382+0300 I STORAGE  [initandlisten] exception in initAndListen: 29 Data directory /home/koomasha/SurveyMonster/~/SurveyMonster/data not found., terminating
+2015-08-22T13:48:36.383+0300 I CONTROL  [initandlisten] dbexit:  rc: 100
+2015-08-22T13:49:13.779+0300 I CONTROL  ***** SERVER RESTARTED *****
+2015-08-22T13:49:13.822+0300 I JOURNAL  [initandlisten] journal dir=/home/koomasha/SurveyMonster/data/journal
+2015-08-22T13:49:13.822+0300 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-08-22T13:49:13.823+0300 I JOURNAL  [initandlisten] 
+2015-08-22T13:49:13.823+0300 E JOURNAL  [initandlisten] Insufficient free space for journal files
+2015-08-22T13:49:13.823+0300 I JOURNAL  [initandlisten] Please make at least 3379MB available in /home/koomasha/SurveyMonster/data/journal or use --smallfiles
+2015-08-22T13:49:13.823+0300 I JOURNAL  [initandlisten] 
+2015-08-22T13:49:13.823+0300 I STORAGE  [initandlisten] exception in initAndListen: 15926 Insufficient free space for journals, terminating
+2015-08-22T13:49:13.823+0300 I CONTROL  [initandlisten] now exiting
+2015-08-22T13:49:13.823+0300 I NETWORK  [initandlisten] shutdown: going to close listening sockets...
+2015-08-22T13:49:13.823+0300 I NETWORK  [initandlisten] removing socket file: /tmp/mongodb-27017.sock
+2015-08-22T13:49:13.823+0300 I NETWORK  [initandlisten] shutdown: going to flush diaglog...
+2015-08-22T13:49:13.823+0300 I NETWORK  [initandlisten] shutdown: going to close sockets...
+2015-08-22T13:49:13.823+0300 I STORAGE  [initandlisten] shutdown: waiting for fs preallocator...
+2015-08-22T13:49:13.823+0300 I STORAGE  [initandlisten] shutdown: final commit...
+2015-08-22T13:49:13.823+0300 I STORAGE  [initandlisten] shutdown: closing all files...
+2015-08-22T13:49:13.823+0300 I STORAGE  [initandlisten] closeAllFiles() finished
+2015-08-22T13:49:13.823+0300 I CONTROL  [initandlisten] dbexit:  rc: 100
+2015-08-22T13:49:53.898+0300 I CONTROL  ***** SERVER RESTARTED *****
+2015-08-22T13:49:53.949+0300 I JOURNAL  [initandlisten] journal dir=/home/koomasha/SurveyMonster/data/journal
+2015-08-22T13:49:53.949+0300 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-08-22T13:49:53.950+0300 I JOURNAL  [initandlisten] 
+2015-08-22T13:49:53.950+0300 E JOURNAL  [initandlisten] Insufficient free space for journal files
+2015-08-22T13:49:53.950+0300 I JOURNAL  [initandlisten] Please make at least 3379MB available in /home/koomasha/SurveyMonster/data/journal or use --smallfiles
+2015-08-22T13:49:53.950+0300 I JOURNAL  [initandlisten] 
+2015-08-22T13:49:53.950+0300 I STORAGE  [initandlisten] exception in initAndListen: 15926 Insufficient free space for journals, terminating
+2015-08-22T13:49:53.950+0300 I CONTROL  [initandlisten] now exiting
+2015-08-22T13:49:53.950+0300 I NETWORK  [initandlisten] shutdown: going to close listening sockets...
+2015-08-22T13:49:53.950+0300 I NETWORK  [initandlisten] removing socket file: /tmp/mongodb-27017.sock
+2015-08-22T13:49:53.950+0300 I NETWORK  [initandlisten] shutdown: going to flush diaglog...
+2015-08-22T13:49:53.950+0300 I NETWORK  [initandlisten] shutdown: going to close sockets...
+2015-08-22T13:49:53.951+0300 I STORAGE  [initandlisten] shutdown: waiting for fs preallocator...
+2015-08-22T13:49:53.951+0300 I STORAGE  [initandlisten] shutdown: final commit...
+2015-08-22T13:49:53.951+0300 I STORAGE  [initandlisten] shutdown: closing all files...
+2015-08-22T13:49:53.951+0300 I STORAGE  [initandlisten] closeAllFiles() finished
+2015-08-22T13:49:53.951+0300 I CONTROL  [initandlisten] dbexit:  rc: 100
+2015-08-22T13:50:48.882+0300 I CONTROL  ***** SERVER RESTARTED *****
+2015-08-22T13:50:48.948+0300 I CONTROL  [initandlisten] MongoDB starting : pid=13194 port=27017 dbpath=/home/koomasha/SurveyMonster/data 64-bit host=ubuntu
+2015-08-22T13:50:48.949+0300 I CONTROL  [initandlisten] 
+2015-08-22T13:50:48.949+0300 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2015-08-22T13:50:48.949+0300 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-08-22T13:50:48.949+0300 I CONTROL  [initandlisten] 
+2015-08-22T13:50:48.949+0300 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2015-08-22T13:50:48.949+0300 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-08-22T13:50:48.950+0300 I CONTROL  [initandlisten] 
+2015-08-22T13:50:48.950+0300 I CONTROL  [initandlisten] db version v3.0.5
+2015-08-22T13:50:48.950+0300 I CONTROL  [initandlisten] git version: 8bc4ae20708dbb493cb09338d9e7be6698e4a3a3
+2015-08-22T13:50:48.950+0300 I CONTROL  [initandlisten] build info: Linux ip-10-183-35-50 3.13.0-24-generic #46-Ubuntu SMP Thu Apr 10 19:11:08 UTC 2014 x86_64 BOOST_LIB_VERSION=1_49
+2015-08-22T13:50:48.950+0300 I CONTROL  [initandlisten] allocator: tcmalloc
+2015-08-22T13:50:48.950+0300 I CONTROL  [initandlisten] options: { config: "mongod.conf", net: { bindIp: "localhost", port: 27017 }, processManagement: { fork: false }, setParameter: { enableLocalhostAuthBypass: "false" }, storage: { dbPath: "data", journal: { enabled: false } }, systemLog: { destination: "file", logAppend: true, path: "log/mongod.log" } }
+2015-08-22T13:50:48.950+0300 I INDEX    [initandlisten] allocating new ns file /home/koomasha/SurveyMonster/data/local.ns, filling with zeroes...
+2015-08-22T13:50:48.995+0300 I STORAGE  [FileAllocator] allocating new datafile /home/koomasha/SurveyMonster/data/local.0, filling with zeroes...
+2015-08-22T13:50:48.995+0300 I STORAGE  [FileAllocator] creating directory /home/koomasha/SurveyMonster/data/_tmp
+2015-08-22T13:50:48.996+0300 I STORAGE  [FileAllocator] done allocating datafile /home/koomasha/SurveyMonster/data/local.0, size: 64MB,  took 0 secs
+2015-08-22T13:50:49.000+0300 I NETWORK  [initandlisten] waiting for connections on port 27017
+2015-08-22T13:51:17.975+0300 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:52213 #1 (1 connection now open)
+2015-08-22T13:51:17.992+0300 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:52214 #2 (2 connections now open)
+2015-08-22T14:26:41.001+0300 I CONTROL  [signalProcessingThread] got signal 1 (Hangup), will terminate after current cmd ends
+2015-08-22T14:26:41.003+0300 I CONTROL  [signalProcessingThread] now exiting
+2015-08-22T14:26:41.003+0300 I NETWORK  [signalProcessingThread] shutdown: going to close listening sockets...
+2015-08-22T14:26:41.003+0300 I NETWORK  [signalProcessingThread] closing listening socket: 6
+2015-08-22T14:26:41.003+0300 I NETWORK  [signalProcessingThread] closing listening socket: 7
+2015-08-22T14:26:41.004+0300 I NETWORK  [signalProcessingThread] removing socket file: /tmp/mongodb-27017.sock
+2015-08-22T14:26:41.004+0300 I NETWORK  [signalProcessingThread] shutdown: going to flush diaglog...
+2015-08-22T14:26:41.004+0300 I NETWORK  [signalProcessingThread] shutdown: going to close sockets...
+2015-08-22T14:26:41.004+0300 I STORAGE  [signalProcessingThread] shutdown: waiting for fs preallocator...
+2015-08-22T14:26:41.004+0300 I STORAGE  [signalProcessingThread] shutdown: closing all files...
+2015-08-22T14:26:41.007+0300 I STORAGE  [signalProcessingThread] closeAllFiles() finished
+2015-08-22T14:26:41.007+0300 I STORAGE  [signalProcessingThread] shutdown: removing fs lock...
+2015-08-22T14:26:41.007+0300 I CONTROL  [signalProcessingThread] dbexit:  rc: 0
+2015-08-23T23:47:48.213+0300 I CONTROL  ***** SERVER RESTARTED *****
+2015-08-23T23:47:48.272+0300 I CONTROL  [initandlisten] MongoDB starting : pid=53547 port=27017 dbpath=/home/koomasha/SurveyMonster/mongo/data 64-bit host=ubuntu
+2015-08-23T23:47:48.273+0300 I CONTROL  [initandlisten] 
+2015-08-23T23:47:48.273+0300 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2015-08-23T23:47:48.273+0300 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-08-23T23:47:48.273+0300 I CONTROL  [initandlisten] 
+2015-08-23T23:47:48.273+0300 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2015-08-23T23:47:48.273+0300 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2015-08-23T23:47:48.273+0300 I CONTROL  [initandlisten] 
+2015-08-23T23:47:48.273+0300 I CONTROL  [initandlisten] db version v3.0.5
+2015-08-23T23:47:48.273+0300 I CONTROL  [initandlisten] git version: 8bc4ae20708dbb493cb09338d9e7be6698e4a3a3
+2015-08-23T23:47:48.273+0300 I CONTROL  [initandlisten] build info: Linux ip-10-183-35-50 3.13.0-24-generic #46-Ubuntu SMP Thu Apr 10 19:11:08 UTC 2014 x86_64 BOOST_LIB_VERSION=1_49
+2015-08-23T23:47:48.273+0300 I CONTROL  [initandlisten] allocator: tcmalloc
+2015-08-23T23:47:48.273+0300 I CONTROL  [initandlisten] options: { config: "mongod.conf", net: { bindIp: "localhost", port: 27017 }, processManagement: { fork: false }, setParameter: { enableLocalhostAuthBypass: "false" }, storage: { dbPath: "data", journal: { enabled: false } }, systemLog: { destination: "file", logAppend: true, path: "log/mongod.log" } }
+2015-08-23T23:47:48.280+0300 I NETWORK  [initandlisten] waiting for connections on port 27017
+2015-08-23T23:47:51.556+0300 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:59375 #1 (1 connection now open)
+2015-08-23T23:48:06.181+0300 I CONTROL  [signalProcessingThread] got signal 2 (Interrupt), will terminate after current cmd ends
+2015-08-23T23:48:06.181+0300 I CONTROL  [signalProcessingThread] now exiting
+2015-08-23T23:48:06.182+0300 I NETWORK  [signalProcessingThread] shutdown: going to close listening sockets...
+2015-08-23T23:48:06.182+0300 I NETWORK  [signalProcessingThread] closing listening socket: 6
+2015-08-23T23:48:06.182+0300 I NETWORK  [signalProcessingThread] closing listening socket: 7
+2015-08-23T23:48:06.182+0300 I NETWORK  [signalProcessingThread] removing socket file: /tmp/mongodb-27017.sock
+2015-08-23T23:48:06.182+0300 I NETWORK  [signalProcessingThread] shutdown: going to flush diaglog...
+2015-08-23T23:48:06.182+0300 I NETWORK  [signalProcessingThread] shutdown: going to close sockets...
+2015-08-23T23:48:06.182+0300 I STORAGE  [signalProcessingThread] shutdown: waiting for fs preallocator...
+2015-08-23T23:48:06.182+0300 I STORAGE  [signalProcessingThread] shutdown: closing all files...
+2015-08-23T23:48:06.183+0300 I STORAGE  [signalProcessingThread] closeAllFiles() finished
+2015-08-23T23:48:06.183+0300 I STORAGE  [signalProcessingThread] shutdown: removing fs lock...
+2015-08-23T23:48:06.183+0300 I CONTROL  [signalProcessingThread] dbexit:  rc: 0
