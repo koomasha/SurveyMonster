@@ -36,7 +36,8 @@ module.exports = {
 			exec(callback);
 	},
 	getPublicSurvey: function(filter,callback) {
-		filter.isPublic=true;
+		filter.isPublic=true
+		console.log(filter);
 		SurveyModel.find(filter).
 			select({ subject: 1, expiryDate: 1, isPublic: 1, surveyTemplate: 1, createDate: 1 }).
 			exec(callback);
