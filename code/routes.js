@@ -4,6 +4,7 @@ var router = require('express').Router();
 var Survey = require('./models/survey');
 var Session = require('./models/session');
 var Submission = require('./models/submission');
+var mongoose = require('mongoose');
 
 var callbackFunc = function(res)
 {
@@ -11,8 +12,10 @@ var callbackFunc = function(res)
     console.log('callbackFunc');
     console.log(err);
     console.log(data);
-    if (err) res.json({success:false,error:err});
-		res.json({success:true,data:data});
+    if (err) 
+      res.json({success:false,error:err});
+    else
+		  res.json({success:true,data:data});
   };
 }
 
@@ -29,7 +32,7 @@ var checkToken = function(usersOnly)
           else
             console.log(err);
 
-          if(!usersOnly ||(data && data.userId))
+          if(!usersOnly ||(data !== null && data.userId !== null))
             next();
           else
             res.json({success:false,error:"invalid token."});
@@ -57,9 +60,13 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
     Session.add(res.req.user._id,callbackFunc(res));
 });
 
+
+router.post('/logout', //checkToken(true), 
+  function(req, res) {
+    Session.remove(req.headers.token,callbackFunc(res));
+});
+
 router.post('/survey/new',checkToken(true), function(req, res) {
-    console.log('creating new survey');
-    console.log(req._session);
     var result = Survey.saveSurvey(req._session,req.body,callbackFunc(res));
 });
 
@@ -75,13 +82,23 @@ router.post('/survey/search/public',checkToken(false), function(req, res) {
     Survey.getPublicSurvey(req.body,callbackFunc(res));
 });
 
-router.post('/survey/results',checkToken(false), function(req, res) {
-		Submission.getSubmissionsBySurvey(req.body, callbackFunc(res));
+router.post('/survey/results',checkToken(true), function(req, res) {
+  if(!mongoose.Types.ObjectId.isValid(req.body.surveyId))
+    callbackFunc(res)("invalid surveyId");
+  else
+    Survey.getSurveyByOwnerId(req._session.userId,{_id:mongoose.Types.ObjectId(req.body.surveyId)},function(err,data)
+    {
+       console.log({name:'getSurveyByOwnerId',err:err,data:data});
+      if(!err && data[0])
+  		  Submission.getSubmissionsBySurvey(data[0]._id, callbackFunc(res));
+      else
+        callbackFunc(res)("invalid surveyId");
+
+    });
 });
 
 router.post('/survey/submit', checkToken(false), function(req, res) {
-		console.log('submitting');
-		Submission.submit(req.body, callbackFunc(res));
+		Submission.submit(req._session,req.body, callbackFunc(res));
 });
 
 module.exports = router;
