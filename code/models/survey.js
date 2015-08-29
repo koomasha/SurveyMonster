@@ -9,7 +9,6 @@ var Field = new Schema({
 
 var Survey = new Schema({
 	subject: String,
-	expiryDate: Date,
 	creatorId: String,
 	ownerIds:[String],
 	allowedUsers:[String],
@@ -20,7 +19,6 @@ var Survey = new Schema({
 
 var SurveyModel = mongoose.model('Survey', Survey);
 
-
 module.exports = {
 	saveSurvey: function(session,newSurvey,callback) {
 		newSurvey.creatorId = session.userId;		
@@ -30,6 +28,30 @@ module.exports = {
 
 		var result = new SurveyModel(newSurvey); 
 		result.save(callback);
+	},
+	deleteSurvey: function(session,surveyId,callback) {
+		if (!session || !session.userId)
+			callback("Unauthorized to perform the survey delete operation.");
+		else
+		{
+			SurveyModel.findOneAndRemove({creatorId:session.userId, _id:mongoose.Types.ObjectId(surveyId)}, function(err, data) 
+			{
+				console.log('SURVEYID:');
+				console.log(surveyId);
+				console.log('USERID:');
+				console.log(session.userId);
+				if(!data) 
+				{
+					callback("invalid surveyId");
+				}
+				else 
+				{
+					console.log("DATA:");
+					console.log(data);
+					callback(err,data);
+				}
+			});
+		}
 	},
 	getSurveyByOwnerId: function(id,filter,callback) {
 		filter.ownerIds={ $in:[id]};

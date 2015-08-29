@@ -70,6 +70,25 @@ router.post('/survey/new',checkToken(true), function(req, res) {
     var result = Survey.saveSurvey(req._session,req.body,callbackFunc(res));
 });
 
+router.post('/survey/delete',checkToken(true),function(req, res) {
+	 	if(!mongoose.Types.ObjectId.isValid(req.body.surveyId))
+    	callbackFunc(res)("invalid surveyId arrived with the request.");
+    	
+    Survey.deleteSurvey(req._session, req.body.surveyId, function(err, data) {
+			if (!data)
+			{
+				console.log('Delete survey: Failed.');
+				callbackFunc(res)("Failed deleting survey. Will not proceed to delete submissions");
+			}
+			else
+			{
+				console.log('Delete survey: Success!');
+				console.log('Deleting associated submissions...');
+				Submission.deleteSubmissionsBySurvey(req.body.surveyId, callbackFunc(res));
+			}
+		});		
+});
+
 router.post('/survey/search/owner',checkToken(true), function(req, res) {
     Survey.getSurveyByOwnerId(req._session.userId,req.body,callbackFunc(res));
 });

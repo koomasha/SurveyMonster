@@ -12,7 +12,7 @@ var Submission = new Schema({
 var SubmissionModel = mongoose.model('Submission', Submission);
 
 module.exports = {
-	submit: function(session,submission, callback) {
+	submit: function(session, submission, callback) {
 			console.log(JSON.stringify(submission));
 		if(!submission.surveyId && typeof submission.surveyId !== "String")
 			callback("Missing or invalid surveyId");
@@ -66,7 +66,14 @@ module.exports = {
 		}
 	},	
 	getSubmissionsBySurvey: function(surveyId, callback) {
-        console.log({name:'getSubmissionsBySurvey',surveyId:surveyId});
+    console.log({name:'getSubmissionsBySurvey',surveyId:surveyId});
 		SubmissionModel.find({surveyId:surveyId}).exec(callback);
+	},
+	// This function is for internal use only and will not be exposed via a url in routes.js.
+	// It is assumed that the calling context already has an active session, 
+	// and that the function is called while deleting a survey by an authorized user.
+	deleteSubmissionsBySurvey: function(surveyId, callback) {
+		console.log({name:'deleteSubmissionsBySurvey', surveyId:surveyId});
+		SubmissionModel.find({surveyId:surveyId}).remove().exec(callback);
 	}
 };
