@@ -47,4 +47,10 @@ app.use(function(req, res, next) {
   res.json(err);
 });
 
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.json({success:false,error:"Internal Error"});
+});
+
 module.exports = app;
