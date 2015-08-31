@@ -24,11 +24,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Configure passport-local to use account model for authentication
-var User = require('./models/user');
-passport.use(new LocalStrategy(User.authenticate()));
-
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+var UserModel = require('./models/user').model;
+passport.use(new LocalStrategy(UserModel.authenticate()));
+passport.serializeUser(UserModel.serializeUser());
+passport.deserializeUser(UserModel.deserializeUser());
 
 // Connect mongoose
 mongoose.connect('mongodb://localhost/surveyMonster', function(err) {
