@@ -70,6 +70,14 @@ router.post('/survey/new',checkToken(true), function(req, res) {
     var result = Survey.saveSurvey(req._session,req.body,callbackFunc(res));
 });
 
+router.post('/survey/update/owners', checkToken(true), function(req, res) {
+		var result = Survey.updateOwners(req._session, req.body.surveyId, req.body.userIds, callbackFunc(res));
+});
+
+router.post('/survey/update/allowed', checkToken(true), function(req, res) {
+		var result = Survey.updateAllowedUsers(req._session, req.body.surveyId, req.body.userIds, callbackFunc(res));
+});
+
 router.post('/survey/delete',checkToken(true),function(req, res) {
 	 	if(!mongoose.Types.ObjectId.isValid(req.body.surveyId))
     	callbackFunc(res)("invalid surveyId arrived with the request.");
@@ -118,6 +126,10 @@ router.post('/survey/results',checkToken(true), function(req, res) {
 
 router.post('/survey/submit', checkToken(false), function(req, res) {
 		Submission.submit(req._session,req.body, callbackFunc(res));
+});
+
+router.post('/users/get', checkToken(false), function(req, res) {
+		User.getUser(req.body, callbackFunc(res));
 });
 
 module.exports = router;

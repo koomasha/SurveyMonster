@@ -34,7 +34,7 @@ module.exports = {
 			callback("Unauthorized to perform the survey delete operation.");
 		else
 		{
-			SurveyModel.findOneAndRemove({creatorId:session.userId, _id:mongoose.Types.ObjectId(surveyId)}, function(err, data) 
+			SurveyModel.findOneAndRemove({ownerIds:{"$in":[session.userId]}, _id:mongoose.Types.ObjectId(surveyId)}, function(err, data) 
 			{
 				console.log('SURVEYID:');
 				console.log(surveyId);
@@ -42,7 +42,7 @@ module.exports = {
 				console.log(session.userId);
 				if(!data) 
 				{
-					callback("invalid surveyId");
+					callback("Invalid surveyId");
 				}
 				else 
 				{
@@ -52,6 +52,14 @@ module.exports = {
 				}
 			});
 		}
+	},
+	updateOwners: function(session, surveyId, userIds, callback) {
+		// TODO: Implement.
+		SurveyModel.update({surveyId:surveyId, ownerIds:{"$in":[session.userId]}}, {$set: { ownerIds:userIds }})
+	},
+	updateAllowedUsers: function(session, surveyId, userIds, callback) {
+		// TODO: Implement.
+		SurveyModel.update({surveyId:surveyId, ownerIds:{"$in":[session.userId]}}, {$set: { allowedIds:userIds }});
 	},
 	getSurveyByOwnerId: function(id,filter,callback) {
 		filter.ownerIds={ $in:[id]};
