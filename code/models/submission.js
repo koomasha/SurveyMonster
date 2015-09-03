@@ -3,8 +3,8 @@ var mongoose = require('mongoose'),
 var Survey = require('./survey');
 
 var Submission = new Schema({
-    userId: String,
-    surveyId: String,
+    userId: {type: Schema.Types.ObjectId, ref: 'User'},
+    surveyId: {type: Schema.Types.ObjectId, ref: 'Survey'},
     answers: [String],
     date: Date
 });
@@ -28,7 +28,13 @@ module.exports = {
 			filter._id= mongoose.Types.ObjectId(submission.surveyId); 
 			Survey.findOne(filter,function(err,survey){
 
-				if(err)
+				if (!survey)
+				{
+					callback("Invalid Survey ID");
+					return;
+				}
+				
+				if (err)
 				{
 					callback(err);
 					return;
@@ -50,12 +56,13 @@ module.exports = {
 						return;
 					}
 
-				submission.userId = session && session.userId ? session.userId : null;
+				submission.userId = session && session.userId ? mongoose.Types.ObjectId(session.userId) : null;
 				submission.date = new Date();
 				if(submission.userId)
 				{
-					SubmissionModel.update({surveyId:submission.surveyId,userId:submission.userId},
-						submission,{upsert:true},callback);
+					SubmissionModel.update({surveyId:submission.surveyId, 
+																	userId:submission.userId},
+																 submission,{upsert:true},callback);
 				}
 				else
 				{
@@ -74,6 +81,6 @@ module.exports = {
 	// and that the function is called while deleting a survey by an authorized user.
 	deleteSubmissionsBySurvey: function(surveyId, callback) {
 		console.log({name:'deleteSubmissionsBySurvey', surveyId:surveyId});
-		SubmissionModel.find({surveyId:surveyId}).remove().exec(callback);
+		SubmissionModel.find({surveyId:mongoose.Types.ObjectId(surveyId)}).remove().exec(callback);
 	}
 };

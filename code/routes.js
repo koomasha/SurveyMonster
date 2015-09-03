@@ -1,5 +1,5 @@
 var passport = require('passport');
-var User = require('./models/user');
+var User = require('./models/user').model;
 var router = require('express').Router();
 var Survey = require('./models/survey');
 var Session = require('./models/session');
@@ -48,11 +48,19 @@ router.post('/register', function(req, res, next) {
   console.log('registering user');
   User.register(new User({ username: req.body.username, 
   												 password: req.body.password, 
-  												 email: req.body.email }), req.body.password, function(err, data) {
-    if (err) { console.log('error while user register!', err); res.json(err); }
-    Session.add(data._id,callbackFunc(res));
-    console.log('user registered!');
-  });
+  												 email: req.body.email }), 
+  										req.body.password, 
+									  	function(err, data) 
+									  	{
+									  		console.log('REACHED HERE (function(err, data))!');
+									    	if (err) 
+									    	{ 
+									    		console.log('error while user register!', err); 
+									    		res.json(err); 
+									    	}
+									    	Session.add(data._id,callbackFunc(res));
+									    	console.log('user registered!');
+									  	});
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res) {

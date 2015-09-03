@@ -3,14 +3,15 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var Session = new Schema({
-    userId: String,
+    userId: {type: Schema.Types.ObjectId, ref: 'User'},
     expireAt: Date,
     token: String
 });
 
 var getExpireAt = function()
 {
-	return new Date(new Date().getTime() + 30*60*1000);
+	//return new Date(new Date().getTime() + 30*60*1000);
+	return new Date(new Date().getTime() + 199930*60*1000);
 }
 
 Session.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
