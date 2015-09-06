@@ -12,6 +12,7 @@ var Submission = new Schema({
 var SubmissionModel = mongoose.model('Submission', Submission);
 
 module.exports = {
+	// Adds a submission (answer for a given survey).
 	submit: function(session, submission, callback) {
 			console.log(JSON.stringify(submission));
 		if(!submission.surveyId && typeof submission.surveyId !== "String")
@@ -21,9 +22,11 @@ module.exports = {
 		else
 		{
 			var filter = {};
+
+			// Logged in users can submit answers to public surveys as well as to any survey that they are specifically allowed.
 			if(session && session.userId)
 				filter= {"$or":[{isPublic:true},{allowedUsers:{"$in":[session.userId]}}]};
-			else
+			else // Guest users can only submit answers to public surveys.
 				filter= {isPublic:true};
 			filter._id= mongoose.Types.ObjectId(submission.surveyId); 
 			Survey.findOne(filter,function(err,survey){
@@ -40,7 +43,7 @@ module.exports = {
 					return;
 				}
 
-				//Check Answers
+				// Check that the number of submitted answers matches the number of querstions in the survey.
 				var temp = survey.surveyTemplate;
 				var ans = submission.answers;
 				if(temp.length != ans.length)
@@ -49,6 +52,7 @@ module.exports = {
 					return;
 				}
 
+				// Check that the types of the anwers match the corresponding questions in the survey.
 				for(var i = 0;i<temp.length;i++)
 					if(!temp[i].other && temp[i].answers.indexOf(ans[i]) == -1)
 					{
@@ -56,22 +60,27 @@ module.exports = {
 						return;
 					}
 
+				// If logged in user, set user ID in the submission.
 				submission.userId = session && session.userId ? mongoose.Types.ObjectId(session.userId) : null;
 				submission.date = new Date();
 				if(submission.userId)
 				{
+					// If logged in user, perform an "upsert" query which either adds a new submission,
+					// or updates an existing one if the user already submitted for this survey in the past.
 					SubmissionModel.update({surveyId:submission.surveyId, 
-																	userId:submission.userId},
-																 submission,{upsert:true},callback);
+											userId:submission.userId},
+											submission,{upsert:true},callback);
 				}
 				else
 				{
+					// If guest user, add a submission to the survey. No user ID is specified for the submission.
 					var result = new SubmissionModel(submission);
 					result.save(callback);
 				}
 			});
 		}
 	},	
+	// Gets all submissions associated with the specified survey.
 	getSubmissionsBySurvey: function(surveyId, callback) {
     console.log({name:'getSubmissionsBySurvey',surveyId:surveyId});
 		SubmissionModel.find({surveyId:surveyId}).exec(callback);

@@ -6,6 +6,7 @@ var Session = require('./models/session');
 var Submission = require('./models/submission');
 var mongoose = require('mongoose');
 
+// This function as the global callback function that ultimately returns the response to the client.
 var callbackFunc = function(res)
 {
   return function(err,data){
@@ -19,6 +20,8 @@ var callbackFunc = function(res)
   };
 }
 
+// Checks if a token is supplied with the request, and if it does,
+// checks if it belongs to an active user session. 
 var checkToken = function(usersOnly)
 {
   return function(req,res,next){
@@ -52,7 +55,6 @@ router.post('/register', function(req, res, next) {
   										req.body.password, 
 									  	function(err, data) 
 									  	{
-									  		console.log('REACHED HERE (function(err, data))!');
 									    	if (err) 
 									    	{ 
 									    		console.log('error while user register!', err); 

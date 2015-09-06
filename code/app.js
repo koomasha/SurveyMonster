@@ -19,17 +19,17 @@ app.use(session({ keys: ['secretkey1', 'secretkey2', '...']}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Configure passport middleware
+// Configure passport middleware.
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Configure passport-local to use account model for authentication
+// Configure passport-local to use account model for authentication.
 var UserModel = require('./models/user').model;
 passport.use(new LocalStrategy(UserModel.authenticate()));
 passport.serializeUser(UserModel.serializeUser());
 passport.deserializeUser(UserModel.deserializeUser());
 
-// Connect mongoose
+// Connect mongoose.
 mongoose.connect('mongodb://localhost/surveyMonster', function(err) {
   if (err) {
     console.log('Could not connect to mongodb on localhost. Ensure that you have mongodb running on localhost and mongodb accepts connections on standard ports!');
