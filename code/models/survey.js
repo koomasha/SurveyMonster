@@ -23,6 +23,7 @@ var ValidationHelper = idValidation.getValidationHelperModel('User');
 var SurveyModel = mongoose.model('Survey', Survey);
 
 module.exports = {
+	// Adds a new survey to the database.
 	saveSurvey: function(session,newSurvey,callback) {
 		newSurvey.creatorId = session.userId;		
 		if (!newSurvey.ownerIds) 
@@ -33,25 +34,25 @@ module.exports = {
 		var result = new SurveyModel(newSurvey); 
 		result.save(callback);
 	},
+	// Deletes a survey from the database.
 	deleteSurvey: function(session,surveyId,callback) {
+		// Guest users are not permitted by definition to delete a survey.
 		if (!session || !session.userId)
 			callback("Unauthorized to perform the survey delete operation.");
 		else
 		{
-			SurveyModel.findOneAndRemove({ownerIds:{"$in":[session.userId]}, 
-																		_id:surveyId}, 
-																	 function(err, data) 
-																		{
-																			if (!data) 
-																				callback("Invalid Survey ID");
-																			else 
-																				callback(err,data);
-																		});
+			// Execute query.
+			SurveyModel.findOneAndRemove({ownerIds:{"$in":[session.userId]}, _id:surveyId}, 
+										 function(err, data) 
+											{
+												if (!data) 
+													callback("Invalid Survey ID");
+												else 
+													callback(err,data);
+											});
 		}
 	},
-	updateOwners: function(session, surveyId, userIds, callback) {
-		// TODO: Implement
-	},
+	// Updates the users that are allowed to submit their answers to a survey.
 	updateAllowedUsers: function(session, surveyId, userIds, callback) { 
 		
 		// Generate a validation helper object from the received model.
@@ -79,6 +80,7 @@ module.exports = {
 		SurveyModel.find(filter).
 			exec(callback);
 	},
+	// Gets surveys a user is allowed to submit answers to.
 	getSurveyByAllowedId: function(id,filter,callback) {
 		filter.allowedUsers={ $in: [mongoose.Types.ObjectId(id)] };
 		SurveyModel.find(filter).
@@ -92,6 +94,7 @@ module.exports = {
 			select({ subject: 1, expiryDate: 1, isPublic: 1, surveyTemplate: 1, createDate: 1 }).
 			exec(callback);
 	},
+	// Gets survey by a custom filter (expected in JSON format).
 	findOne: function(filter,callback) {
 		SurveyModel.findOne(filter,callback);
 	},
