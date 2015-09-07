@@ -22,7 +22,9 @@ var SurveyModel = mongoose.model('Survey', Survey);
 module.exports = {
 	// Adds a new survey to the database.
 	saveSurvey: function(session,newSurvey,callback) {
-		newSurvey.creatorId = session.userId;		
+		newSurvey.creatorId = session.userId;	
+		if(!newSurvey.isPublic)
+			newSurvey.isPublic = false;
 		if (!newSurvey.ownerIds) 
 			newSurvey.ownerIds = [];
 		newSurvey.ownerIds.push(newSurvey.creatorId);
