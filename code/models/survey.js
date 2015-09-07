@@ -1,5 +1,4 @@
 var mongoose = require('mongoose'),
-		idValidation = require('../helpers/idValidation'),
     Schema = mongoose.Schema;
 
 var Field = new Schema({
@@ -56,7 +55,6 @@ module.exports = {
 			SurveyModel.update({_id:surveyId, ownerIds:{"$in":[session.userId]}}, 
 												 {$set: { allowedUsers:userIds}},
 												 callback);
-		});
 	},
 	getSurveyByOwnerId: function(id,filter,callback) {
 		filter.ownerIds={ $in:[id]};
