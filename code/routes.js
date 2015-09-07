@@ -1,5 +1,6 @@
 var passport = require('passport');
 var User = require('./models/user').model;
+var UserMethods = require('./models/user');
 var router = require('express').Router();
 var Survey = require('./models/survey');
 var Session = require('./models/session');
@@ -47,9 +48,10 @@ var checkToken = function(usersOnly)
   };
 }
 
+// Registers a new user to the system.
 router.post('/register', function(req, res, next) {
   console.log('registering user');
-  User.register(new User({ username: req.body.username, 
+  UserModel.register(new User({ username: req.body.username, 
   												 password: req.body.password, 
   												 email: req.body.email }), 
   										req.body.password, 
@@ -60,8 +62,12 @@ router.post('/register', function(req, res, next) {
 									    		console.log('error while user register!', err); 
 									    		res.json(err); 
 									    	}
-									    	Session.add(data._id,callbackFunc(res));
-									    	console.log('user registered!');
+                        if(data)
+                        {
+  									    	Session.add(data._id,callbackFunc(res));
+                          console.log('user registered!');
+                        }
+									    	
 									  	});
 });
 
@@ -139,7 +145,7 @@ router.post('/survey/submit', checkToken(false), function(req, res) {
 });
 
 router.post('/users/get', checkToken(false), function(req, res) {
-		User.getUser(req.body, callbackFunc(res));
+		UserMethods.getUser(req.body, callbackFunc(res));
 });
 
 module.exports = router;
