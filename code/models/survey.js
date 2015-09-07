@@ -10,16 +10,14 @@ var Field = new Schema({
 
 var Survey = new Schema({
 	subject: String,
-	creatorId: {type: Schema.Types.ObjectId, ref: 'User'},
-	ownerIds: [{type: Schema.Types.ObjectId, ref: 'User'}],
-	allowedUsers: [{type: Schema.Types.ObjectId, ref: 'User'}],
+	creatorId: String,
+	ownerIds: [String],
+	allowedUsers: [String],
 	isPublic:Boolean,
 	surveyTemplate:[Field],
 	createDate:Date
 });
 
-// Get validation helper for the User model, in order to validate the user IDs received with the request.
-var ValidationHelper = idValidation.getValidationHelperModel('User');
 var SurveyModel = mongoose.model('Survey', Survey);
 
 module.exports = {
@@ -54,35 +52,21 @@ module.exports = {
 	},
 	// Updates the users that are allowed to submit their answers to a survey.
 	updateAllowedUsers: function(session, surveyId, userIds, callback) { 
-		
-		// Generate a validation helper object from the received model.
-		var helper = new ValidationHelper({userIds: userIds});
-		
-		// Performa validation of the received array of user IDs.
-		helper.validate(function(err){
-			if (err)
-			{
-				console.log("User ID validation error");
-				console.log(err.errors);
-				callback("At least one invalid User ID detected");
-				return;
-			}
-			
-			// Reaching here means that the validation passed successfully. Update the required survey.
+
 			SurveyModel.update({_id:surveyId, ownerIds:{"$in":[session.userId]}}, 
-												 {$set: { allowedUsers:userIds.map(function(o){return mongoose.Types.ObjectId(o);}) }},
+												 {$set: { allowedUsers:userIds}},
 												 callback);
 		});
 	},
 	getSurveyByOwnerId: function(id,filter,callback) {
-		filter.ownerIds={ $in:[mongoose.Types.ObjectId(id)]};
+		filter.ownerIds={ $in:[id]};
 		console.log(filter);
 		SurveyModel.find(filter).
 			exec(callback);
 	},
 	// Gets surveys a user is allowed to submit answers to.
 	getSurveyByAllowedId: function(id,filter,callback) {
-		filter.allowedUsers={ $in: [mongoose.Types.ObjectId(id)] };
+		filter.allowedUsers={ $in: [id] };
 		SurveyModel.find(filter).
 			select({ subject: 1, expiryDate: 1, isPublic: 1, surveyTemplate: 1, createDate: 1 }).
 			exec(callback);
@@ -99,5 +83,3 @@ module.exports = {
 		SurveyModel.findOne(filter,callback);
 	},
 };
-
-/*TEST*/
