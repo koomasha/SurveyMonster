@@ -3,8 +3,8 @@ var mongoose = require('mongoose'),
 var Survey = require('./survey');
 
 var Submission = new Schema({
-    userId: {type: Schema.Types.ObjectId, ref: 'User'},
-    surveyId: {type: Schema.Types.ObjectId, ref: 'Survey'},
+    userId: String,
+    surveyId: String,
     answers: [String],
     date: Date
 });
@@ -61,7 +61,7 @@ module.exports = {
 					}
 
 				// If logged in user, set user ID in the submission.
-				submission.userId = session && session.userId ? mongoose.Types.ObjectId(session.userId) : null;
+				submission.userId = session && session.userId ? session.userId : null;
 				submission.date = new Date();
 				if(submission.userId)
 				{
@@ -90,6 +90,6 @@ module.exports = {
 	// and that the function is called while deleting a survey by an authorized user.
 	deleteSubmissionsBySurvey: function(surveyId, callback) {
 		console.log({name:'deleteSubmissionsBySurvey', surveyId:surveyId});
-		SubmissionModel.find({surveyId:mongoose.Types.ObjectId(surveyId)}).remove().exec(callback);
+		SubmissionModel.find({surveyId:surveyId}).remove().exec(callback);
 	}
 };

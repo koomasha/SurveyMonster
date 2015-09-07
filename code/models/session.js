@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var Session = new Schema({
-    userId: {type: Schema.Types.ObjectId, ref: 'User'},
+    userId: String,
     expireAt: Date,
     token: String
 });
@@ -46,5 +46,3 @@ module.exports = {
 		});
 	},
 };
-
-/*TEST*/
