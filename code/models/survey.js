@@ -70,7 +70,7 @@ module.exports = {
 			
 			// Reaching here means that the validation passed successfully. Update the required survey.
 			SurveyModel.update({_id:surveyId, ownerIds:{"$in":[session.userId]}}, 
-												 {$set: { allowedUsers:userIds }},
+												 {$set: { allowedUsers:userIds.map(function(o){return mongoose.Types.ObjectId(o);}) }},
 												 callback);
 		});
 	},
